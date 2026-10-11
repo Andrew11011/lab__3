@@ -1,0 +1,71 @@
+{
+  "tournament": "University Tournament",
+  "teams": [
+    {
+      "name": "Faculty of Electronics",
+      "players": ["Maxym", "Ivan", "Alex"]
+    },
+    {
+      "name": "Faculty of Law",
+      "players": ["Max", "Dima", "Volodya"]
+    },
+    {
+      "name": "Faculty of Economics",
+      "players": ["Andriy", "Taras", "Alexander"]
+    },
+    {
+      "name": "Faculty of International Relations",
+      "players": ["Roman", "Ostap", "Denys"]
+    }
+  ],
+  "matches": [
+    {
+      "team1": "Faculty of Electronics",
+      "team2": "Faculty of Law",
+      "date": "04-09-2026",
+      "score": {
+        "team1": 1,
+        "team2": 0
+      },
+      "isFinished": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "Maxym",
+          "minute": 34,
+          "penalty": false
+        },
+        {
+          "type": "yellow_card",
+          "player": "Dima",
+          "minute": 70,
+          "penalty": null
+        }
+      ]
+    },
+    {
+      "team1": "Faculty of Economics",
+      "team2": "Faculty of International Relations",
+      "date": "05-09-2026",
+      "score": {
+        "team1": 3,
+        "team2": 2
+      },
+      "isFinished": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "Andriy",
+          "minute": 15,
+          "penalty": false
+        },
+        {
+          "type": "goal",
+          "player": "Roman",
+          "minute": 88,
+          "penalty": true
+        }
+      ]
+    }
+  ]
+}
