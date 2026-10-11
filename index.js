@@ -1,9 +1,10 @@
 import { Command } from "commander";
 import { readFileSync } from "node:fs";
 
+// Створення CLI-інтерфейсу
 const program = new Command();
 
-
+// Налаштування основної команди програми
 program
   .name("tournament-cli")
   .description("Програма для роботи з футбольним турніром")
@@ -11,12 +12,13 @@ program
   .option("-f, --file <path>", "Шлях до JSON-файлу", "data.json");
   
 
+// Команда для показу списку матчів
 const listCommand = program
   .command("list")
   .description("Показати список матчів")
   .option("-l, --limit <number>", "Обмежити кількість матчів");
 
-
+// Зчитування даних із JSON-файлу
 function getData() {
   const file = program.opts().file;
   
@@ -28,6 +30,7 @@ function getData() {
     }
 }
 
+// Вивід матчів з можливістю обмеження кількості
 listCommand.action(() => {
   const data = getData();
   const options = listCommand.opts();
@@ -52,6 +55,7 @@ listCommand.action(() => {
   }
 });
 
+// Команда для перегляду одного матчу за номером
 program
   .command("match <number>")
   .description("Показати один матч повністю")
@@ -69,6 +73,7 @@ program
     console.log(JSON.stringify(match, null, 2));
   });
 
+// Команда для читання окремого поля з даних матчу
 program
   .command("play <number> <path>")
   .description("Показати окреме поле матчу")
@@ -96,6 +101,7 @@ program
     }
   });
 
+// Команда для відображення складу команди
 program
   .command("team <name>")
   .description("Показати склад команди")
@@ -118,12 +124,14 @@ program
     }
   });
 
+// Команда для пошуку матчів за командою або датою
 const matchesCommand = program
   .command("matches")
   .description("Знайти матчі")
   .option("-t, --team <name>", "Назва команди")
   .option("-d, --date <date>", "Дата матчу");
 
+// Фільтрація матчів за параметрами користувача
 matchesCommand.action(() => {
   const data = getData();
   const options = matchesCommand.opts();
@@ -147,11 +155,13 @@ matchesCommand.action(() => {
   }
 });
 
+// Команда для підрахунку бомбардирів
 const scorersCommand = program
   .command("scorers")
   .description("Показати список бомбардирів")
   .option("-p, --penalties", "Показати лише голи з пенальті");
 
+// Підрахунок голів для кожного гравця
 scorersCommand.action(() => {
   const options = scorersCommand.opts();
   const data = getData();
@@ -180,4 +190,5 @@ scorersCommand.action(() => {
   }
 });
 
+// Запуск CLI
 program.parse();
