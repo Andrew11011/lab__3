@@ -33,4 +33,14 @@ listCommand.action(() => {
   }
 });
 
+program
+  .command("match <number>")
+  .description("Показати один матч повністю")
+  .action((number) => {
+    const index = Number(number) - 1;
+    const match = data.matches[index];
+
+    console.log(JSON.stringify(match, null, 2));
+  });
+
 program.parse();
