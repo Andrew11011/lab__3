@@ -53,20 +53,25 @@ program
   .command("play <number> <path>")
   .description("Показати окреме поле матчу")
   .action((number, path) => {
-    const index = Number(number) - 1;
-    const match = data.matches[index];
+    try {
+      let value = data.matches[Number(number) - 1];
 
-    const parts = path.split(".");
-    let value = match;
+      for (const part of path.split(".")) {
+        value = value[part];
+      }
 
-    for (const part of parts) {
-      value = value[part];
-    }
+      if (value === undefined) {
+        throw new Error();
+      }
 
-    if (typeof value === "object") {
-      console.log(JSON.stringify(value, null, 2));
-    } else {
-      console.log(value);
+      console.log(
+        typeof value === "object"
+          ? JSON.stringify(value, null, 2)
+          : value
+      );
+    } catch {
+      console.error("Помилка: матч або поле не знайдено");
+      process.exitCode = 1;
     }
   });
 
