@@ -81,4 +81,25 @@ program
     }
   });
 
+program
+  .command("team <name>")
+  .description("Показати склад команди")
+  .action((name) => {
+    const team = data.teams.find(
+      (team) => team.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (!team) {
+      console.error("Помилка: такої команди немає");
+      process.exitCode = 1;
+      return;
+    }
+
+    console.log(team.name);
+
+    for (const player of team.players) {
+      console.log(`- ${player}`);
+    }
+  });
+
 program.parse();
