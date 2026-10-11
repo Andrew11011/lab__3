@@ -9,14 +9,25 @@ const data = JSON.parse(fileText);
 program
   .name("tournament-cli")
   .description("Програма для роботи з футбольним турніром")
-  .version("1.0.0");
+  .version("1.0.0")
+  .option("-f, --file <path>", "Шлях до JSON-файлу", "data.json");
+  
 
 const listCommand = program
   .command("list")
   .description("Показати список матчів")
   .option("-l, --limit <number>", "Обмежити кількість матчів");
 
+
+function getData() {
+  const file = program.opts().file;
+  const fileText = readFileSync(file, "utf8");
+
+  return JSON.parse(fileText);
+}
+
 listCommand.action(() => {
+  const data = getData();
   const options = listCommand.opts();
 
   const limit =
@@ -43,6 +54,7 @@ program
   .command("match <number>")
   .description("Показати один матч повністю")
   .action((number) => {
+    const data = getData();
     const index = Number(number) - 1;
     const match = data.matches[index];
 
@@ -60,6 +72,7 @@ program
   .description("Показати окреме поле матчу")
   .action((number, path) => {
     try {
+      const data = getData();
       let value = data.matches[Number(number) - 1];
 
       for (const part of path.split(".")) {
@@ -85,6 +98,7 @@ program
   .command("team <name>")
   .description("Показати склад команди")
   .action((name) => {
+    const data = getData();
     const team = data.teams.find(
       (team) => team.name.toLowerCase() === name.toLowerCase()
     );
@@ -109,6 +123,7 @@ const matchesCommand = program
   .option("-d, --date <date>", "Дата матчу");
 
 matchesCommand.action(() => {
+  const data = getData();
   const options = matchesCommand.opts();
 
   const matches = data.matches.filter((match) =>
@@ -134,6 +149,7 @@ program
   .command("scorers")
   .description("Показати список бомбардирів")
   .action(() => {
+    const data = getData();
     const goals = {};
 
     for (const match of data.matches) {
