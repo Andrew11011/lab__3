@@ -1,0 +1,24 @@
+{
+  "name": "lab__3",
+  "version": "1.0.0",
+  "description": "CLI-програма для роботи з даними футбольного турніру",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrew11011/lab__3.git"
+  },
+  "keywords": [],
+  "author": "Andriy Vantukh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andrew11011/lab__3/issues"
+  },
+  "homepage": "https://github.com/Andrew11011/lab__3#readme",
+  "dependencies": {
+    "commander": "^15.0.0"
+  }
+}
