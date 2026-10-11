@@ -24,6 +24,12 @@ listCommand.action(() => {
       ? data.matches.length
       : Number(options.limit);
 
+    if (!Number.isInteger(limit) || limit < 1) {
+        console.error("Помилка: ліміт має бути додатним цілим числом");
+        process.exitCode = 1;
+        return;
+}
+
   const matchesToShow = data.matches.slice(0, limit);
 
   for (const match of matchesToShow) {
