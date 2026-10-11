@@ -145,32 +145,37 @@ matchesCommand.action(() => {
   }
 });
 
-program
+const scorersCommand = program
   .command("scorers")
   .description("Показати список бомбардирів")
-  .action(() => {
-    const data = getData();
-    const goals = {};
+  .option("-p, --penalties", "Показати лише голи з пенальті");
 
-    for (const match of data.matches) {
-      for (const event of match.events) {
-        if (event.type === "goal") {
-          if (!goals[event.player]) {
-            goals[event.player] = 0;
-          }
+scorersCommand.action(() => {
+  const options = scorersCommand.opts();
+  const data = getData();
+  const goals = {};
 
-          goals[event.player]++;
+  for (const match of data.matches) {
+    for (const event of match.events) {
+      const isGoal = event.type === "goal";
+      const isNeeded = !options.penalties || event.penalty === true;
+
+      if (isGoal && isNeeded) {
+        if (!goals[event.player]) {
+          goals[event.player] = 0;
         }
+
+        goals[event.player]++;
       }
     }
+  }
 
-    const scorers = Object.entries(goals);
+  const scorers = Object.entries(goals);
+  scorers.sort((a, b) => b[1] - a[1]);
 
-    scorers.sort((a, b) => b[1] - a[1]);
-
-    for (const [player, goalCount] of scorers) {
-      console.log(`${player}: ${goalCount}`);
-    }
-  });
+  for (const [player, goalCount] of scorers) {
+    console.log(`${player}: ${goalCount}`);
+  }
+});
 
 program.parse();
