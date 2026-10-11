@@ -3,8 +3,6 @@ import { readFileSync } from "node:fs";
 
 const program = new Command();
 
-const fileText = readFileSync("data.json", "utf8");
-const data = JSON.parse(fileText);
 
 program
   .name("tournament-cli")
