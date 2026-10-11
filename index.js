@@ -40,6 +40,12 @@ program
     const index = Number(number) - 1;
     const match = data.matches[index];
 
+    if (!match) {
+      console.error("Помилка: такого матчу немає");
+      process.exitCode = 1;
+      return;
+    }
+
     console.log(JSON.stringify(match, null, 2));
   });
 
