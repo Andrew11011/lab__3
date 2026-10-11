@@ -43,4 +43,25 @@ program
     console.log(JSON.stringify(match, null, 2));
   });
 
+program
+  .command("play <number> <path>")
+  .description("Показати окреме поле матчу")
+  .action((number, path) => {
+    const index = Number(number) - 1;
+    const match = data.matches[index];
+
+    const parts = path.split(".");
+    let value = match;
+
+    for (const part of parts) {
+      value = value[part];
+    }
+
+    if (typeof value === "object") {
+      console.log(JSON.stringify(value, null, 2));
+    } else {
+      console.log(value);
+    }
+  });
+
 program.parse();
