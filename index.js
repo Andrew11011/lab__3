@@ -130,4 +130,31 @@ matchesCommand.action(() => {
   }
 });
 
+program
+  .command("scorers")
+  .description("Показати список бомбардирів")
+  .action(() => {
+    const goals = {};
+
+    for (const match of data.matches) {
+      for (const event of match.events) {
+        if (event.type === "goal") {
+          if (!goals[event.player]) {
+            goals[event.player] = 0;
+          }
+
+          goals[event.player]++;
+        }
+      }
+    }
+
+    const scorers = Object.entries(goals);
+
+    scorers.sort((a, b) => b[1] - a[1]);
+
+    for (const [player, goalCount] of scorers) {
+      console.log(`${player}: ${goalCount}`);
+    }
+  });
+
 program.parse();
