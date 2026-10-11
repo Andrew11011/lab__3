@@ -64,6 +64,24 @@
           "player": "Roman",
           "minute": 88,
           "penalty": true
+        },
+        {
+        "type": "goal",
+        "player": "Taras",
+        "minute": 35,
+        "penalty": false
+        },
+        {
+        "type": "goal",
+        "player": "Alexander",
+        "minute": 60,
+        "penalty": false
+        },
+        {
+        "type": "goal",
+        "player": "Ostap",
+        "minute": 75,
+        "penalty": false
         }
       ]
     }
