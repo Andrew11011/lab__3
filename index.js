@@ -102,4 +102,32 @@ program
     }
   });
 
+const matchesCommand = program
+  .command("matches")
+  .description("Знайти матчі")
+  .option("-t, --team <name>", "Назва команди")
+  .option("-d, --date <date>", "Дата матчу");
+
+matchesCommand.action(() => {
+  const options = matchesCommand.opts();
+
+  const matches = data.matches.filter((match) =>
+    (!options.team ||
+      match.team1 === options.team ||
+      match.team2 === options.team) &&
+    (!options.date || match.date === options.date)
+  );
+
+  if (matches.length === 0) {
+    console.error("Матчів не знайдено");
+    return;
+  }
+
+  for (const match of matches) {
+    console.log(
+      `${match.date}: ${match.team1} ${match.score.team1}:${match.score.team2} ${match.team2}`
+    );
+  }
+});
+
 program.parse();
