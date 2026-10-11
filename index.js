@@ -19,9 +19,13 @@ const listCommand = program
 
 function getData() {
   const file = program.opts().file;
-  const fileText = readFileSync(file, "utf8");
-
-  return JSON.parse(fileText);
+  
+  try {
+    return JSON.parse(readFileSync(file, "utf-8"));
+    } catch {
+        console.error("Помилка: не вдалося прочитати файл даних");
+        process.exit(1);
+    }
 }
 
 listCommand.action(() => {
